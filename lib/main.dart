@@ -3,10 +3,10 @@ import 'package:flutter_luckin_coffee/app.dart';
 import 'package:flutter_luckin_coffee/route/route.dart';
 
 void main() {
-  runApp(_app());
+  runApp(startApp());
 }
 
-Widget _app() {
+Widget startApp() {
   return MaterialApp(
     onGenerateRoute: onGenerateRoute,
   );
