@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_luckin_coffee/home/home.dart';
+import 'package:flutter_luckin_coffee/view_model/home_view_model.dart';
+import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
   @override
@@ -18,8 +21,12 @@ Widget _bottomBarItem(String icon) {
 }
 
 class _AppState extends State<App> {
-  int curIndex = 0;
-  final List<Widget> pageList = [];
+  HomeViewModel _viewModel = HomeViewModel();
+
+  final List<Widget> pageList = [
+    Home(),
+    Home(),
+  ];
   final List<BottomNavigationBarItem> tabbarList = [
     BottomNavigationBarItem(
       icon: _bottomBarItem('assets/images/tabbar/tabbar_home.png'),
@@ -33,17 +40,35 @@ class _AppState extends State<App> {
     )
   ];
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _bodyWidget() {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: tabbarList,
         type: BottomNavigationBarType.fixed,
-        onTap: (int index) {},
+        currentIndex: _viewModel.curIndex,
+        selectedItemColor: Color(0xFF2b4c7e),
+        unselectedItemColor: Color(0xFF2b4c7e),
+        onTap: (int index) {
+          _viewModel.tapTabbar(index);
+        },
       ),
       body: IndexedStack(
-        index: curIndex,
+        index: _viewModel.curIndex,
         children: pageList,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => _viewModel),
+      ],
+      child: Consumer<HomeViewModel>(
+        builder: (context, model, child) {
+          return _bodyWidget();
+        },
       ),
     );
   }
