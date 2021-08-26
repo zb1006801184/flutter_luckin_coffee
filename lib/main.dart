@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_luckin_coffee/app.dart';
 import 'package:flutter_luckin_coffee/route/route.dart';
 
 void main() {
@@ -8,6 +7,7 @@ void main() {
 
 Widget startApp() {
   return MaterialApp(
+    title: '瑞幸咖啡',
     onGenerateRoute: onGenerateRoute,
   );
 }
